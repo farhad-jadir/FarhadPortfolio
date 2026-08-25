@@ -275,12 +275,24 @@ export default function FeaturedProjects() {
                   </span>
                 </div>
 
-                {/* ইমেজ থাম্বনেল */}
-                <div className="relative w-full h-36 sm:h-40 bg-zinc-900 overflow-hidden border-b border-white/10">
+                {/* ইমেজ থাম্বনেল (ক্লিকেবল লিঙ্ক) */}
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="relative block w-full h-36 sm:h-40 bg-zinc-900 overflow-hidden border-b border-white/10 cursor-pointer group/img"
+                  title={`Open ${project.title}`}
+                >
                   <div className="absolute top-2.5 left-3 z-20 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10">
                     <span className="w-1.5 h-1.5 rounded-full bg-rose-500/90" />
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-500/90" />
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/90" />
+                  </div>
+
+                  {/* হোভার অপটিক্যাল আইকন */}
+                  <div className="absolute top-2.5 right-3 z-20 opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-emerald-500/40 flex items-center gap-1 text-[10px] font-mono text-emerald-300">
+                    <ExternalLink className="w-3 h-3" />
+                    <span>Open</span>
                   </div>
 
                   {project.imageUrl ? (
@@ -288,23 +300,25 @@ export default function FeaturedProjects() {
                       <img
                         src={project.imageUrl}
                         alt={project.title}
-                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 filter brightness-90 group-hover:brightness-100"
+                        className="w-full h-full object-cover object-top group-hover/img:scale-110 transition-transform duration-500 filter brightness-90 group-hover/img:brightness-100"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-50" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-50 group-hover/img:opacity-20 transition-opacity" />
                     </div>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-zinc-600">
                       <Sparkles className="w-6 h-6 text-emerald-500/30" />
                     </div>
                   )}
-                </div>
+                </a>
 
                 {/* কার্ড কন্টেন্ট */}
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors mb-2 line-clamp-1">
-                      {project.title}
+                      <a href={project.liveUrl} target="_blank" rel="noreferrer" className="hover:underline">
+                        {project.title}
+                      </a>
                     </h3>
                     
                     <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-4 line-clamp-2">
@@ -508,7 +522,7 @@ export default function FeaturedProjects() {
                 rotate: [2, -2, 2],
               }}
               transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-10 right-10 z-20 px-4 py-2 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-teal-400/40 text-teal-300 font-mono text-xs shadow-[0_0_20px_rgba(45,212,191,0.25)] flex items-center gap-2 pointer-events-none"
+              className="absolute bottom-10 right-10 z-80 px-4 py-2 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-teal-400/40 text-teal-300 font-mono text-xs shadow-[0_0_20px_rgba(45,212,191,0.25)] flex items-center gap-2 pointer-events-none"
             >
               <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
               <span>git.commit(&quot;upcoming-release&quot;)</span>
