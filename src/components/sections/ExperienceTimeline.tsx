@@ -23,56 +23,82 @@ export default function ExperienceTimeline() {
           </h2>
         </div>
 
-        {/* ডেক্সটপ আঁকাবাঁকা কানেক্টিং রেখা (২টি কার্ডের সংযোগ) */}
-        <div className="hidden md:block absolute top-[160px] left-[20%] right-[20%] h-24 pointer-events-none z-0">
-          <svg className="w-full h-full overflow-visible" viewBox="0 0 600 80" fill="none">
+        {/* ডেক্সটপ ডাবল আঁকাবাঁকা রেখা (কার্ডের পেছনে z-0 এ থাকবে) */}
+        <div className="hidden md:block absolute top-[180px] left-[10%] right-[10%] h-36 pointer-events-none z-0">
+          <svg className="w-full h-full overflow-visible" viewBox="0 0 800 120" fill="none">
+            {/* ট্র্যাক ১: এমারেল্ড কার্ভ */}
             <path
-              d="M 50,40 Q 300,-15 550,40"
-              stroke="#34d399"
-              strokeWidth="3"
-              strokeOpacity="0.15"
+              d="M 50,45 Q 400,-20 750,45"
+              stroke="#10b981"
+              strokeWidth="2.5"
+              strokeOpacity="0.25"
               fill="none"
             />
             <motion.path
-              d="M 50,40 Q 300,-15 550,40"
-              stroke="url(#gradient-experience-line)"
-              strokeWidth="2.5"
+              d="M 50,45 Q 400,-20 750,45"
+              stroke="url(#gradient-exp-double-a)"
+              strokeWidth="2"
               strokeDasharray="6 6"
               fill="none"
-              initial={{ strokeDashoffset: 80 }}
+              initial={{ strokeDashoffset: 100 }}
               animate={{ strokeDashoffset: 0 }}
-              transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+              transition={{ repeat: Infinity, duration: 4.5, ease: "linear" }}
             />
+
+            {/* ট্র্যাক ২: সায়ান/টিয়াল কার্ভ */}
+            <path
+              d="M 50,68 Q 400,5 750,68"
+              stroke="#06b6d4"
+              strokeWidth="2.5"
+              strokeOpacity="0.2"
+              fill="none"
+            />
+            <motion.path
+              d="M 50,68 Q 400,5 750,68"
+              stroke="url(#gradient-exp-double-b)"
+              strokeWidth="1.8"
+              strokeDasharray="4 6"
+              fill="none"
+              initial={{ strokeDashoffset: -100 }}
+              animate={{ strokeDashoffset: 0 }}
+              transition={{ repeat: Infinity, duration: 3.8, ease: "linear" }}
+            />
+
             <defs>
-              <linearGradient id="gradient-experience-line" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="gradient-exp-double-a" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#34d399" stopOpacity="0.9" />
-                <stop offset="50%" stopColor="#2dd4bf" stopOpacity="1" />
+                <stop offset="50%" stopColor="#2dd4bf" />
                 <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.9" />
+              </linearGradient>
+              <linearGradient id="gradient-exp-double-b" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#38bdf8" />
+                <stop offset="100%" stopColor="#34d399" stopOpacity="0.8" />
               </linearGradient>
             </defs>
           </svg>
         </div>
 
-        {/* কার্ড লেআউট */}
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-0 md:gap-6 relative z-10">
+        {/* কার্ড গ্রিড (সমান উচ্চতার জন্য items-stretch ও h-full) */}
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-0 md:gap-6 items-stretch relative z-10">
           {experiencesData.map((exp, idx) => {
             const isOpportunity = idx === 0;
             return (
-              <div key={idx} className="flex flex-col">
+              <div key={idx} className="flex flex-col h-full">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.15 }}
-                  className={`relative rounded-2xl p-6 sm:p-7 border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 ${
+                  className={`relative rounded-2xl p-6 sm:p-7 border flex flex-col justify-between h-full transition-all duration-300 hover:-translate-y-1 ${
                     isOpportunity
                       ? "bg-gradient-to-br from-emerald-500/10 via-zinc-950/90 to-zinc-950/90 border-emerald-500/30 shadow-[0_0_30px_rgba(52,211,153,0.06)] hover:border-emerald-500/50"
                       : "bg-zinc-950/90 border-white/10 hover:border-white/20 shadow-xl"
                   }`}
                 >
-                  {/* ডেক্সটপ নোড ডট */}
+                  {/* নোড ডট (ডাবল রিং) */}
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 hidden md:flex items-center justify-center z-30">
-                    <span className="w-6 h-6 rounded-full bg-zinc-950 border border-emerald-400/50 flex items-center justify-center shadow-[0_0_10px_rgba(52,211,153,0.3)]">
+                    <span className="w-6 h-6 rounded-full bg-zinc-950 border border-emerald-400/60 flex items-center justify-center shadow-[0_0_10px_rgba(52,211,153,0.4)]">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     </span>
                   </div>
@@ -110,7 +136,7 @@ export default function ExperienceTimeline() {
                     </div>
 
                     {/* বিবরণ */}
-                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6">
                       {exp.description}
                     </p>
                   </div>
@@ -129,32 +155,58 @@ export default function ExperienceTimeline() {
                   )}
                 </motion.div>
 
-                {/* মোবাইলের মধ্যবর্তী আঁকাবাঁকা রেখা (S-Curve) */}
+                {/* মোবাইলের মধ্যবর্তী ডাবল কার্ভড রেখা */}
                 {idx < experiencesData.length - 1 && (
-                  <div className="md:hidden flex justify-center items-center py-2 h-14 relative my-[-2px] z-20">
-                    <svg className="w-24 h-full overflow-visible" viewBox="0 0 60 50" fill="none">
+                  <div className="md:hidden flex justify-center items-center py-2 h-16 relative my-[-2px] z-20">
+                    <svg className="w-28 h-full overflow-visible" viewBox="0 0 70 60" fill="none">
+                      {/* ট্র্যাক ১ */}
                       <path
-                        d="M 30,0 C 5,15 55,35 30,50"
+                        d="M 25,0 C 0,20 60,40 25,60"
                         stroke="#10b981"
-                        strokeWidth="3"
-                        strokeOpacity="0.2"
+                        strokeWidth="2.5"
+                        strokeOpacity="0.25"
                         fill="none"
                       />
                       <motion.path
-                        d="M 30,0 C 5,15 55,35 30,50"
-                        stroke="url(#mobile-exp-curve-gradient)"
-                        strokeWidth="2.5"
+                        d="M 25,0 C 0,20 60,40 25,60"
+                        stroke="url(#mobile-exp-double-a)"
+                        strokeWidth="2"
                         strokeDasharray="4 4"
                         fill="none"
                         initial={{ strokeDashoffset: 50 }}
                         animate={{ strokeDashoffset: 0 }}
                         transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
                       />
+
+                      {/* ট্র্যাক ২ */}
+                      <path
+                        d="M 45,0 C 20,20 80,40 45,60"
+                        stroke="#06b6d4"
+                        strokeWidth="2.5"
+                        strokeOpacity="0.2"
+                        fill="none"
+                      />
+                      <motion.path
+                        d="M 45,0 C 20,20 80,40 45,60"
+                        stroke="url(#mobile-exp-double-b)"
+                        strokeWidth="1.8"
+                        strokeDasharray="3 4"
+                        fill="none"
+                        initial={{ strokeDashoffset: -50 }}
+                        animate={{ strokeDashoffset: 0 }}
+                        transition={{ repeat: Infinity, duration: 1.6, ease: "linear" }}
+                      />
+
                       <defs>
-                        <linearGradient id="mobile-exp-curve-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <linearGradient id="mobile-exp-double-a" x1="0%" y1="0%" x2="0%" y2="100%">
                           <stop offset="0%" stopColor="#34d399" />
                           <stop offset="50%" stopColor="#2dd4bf" />
                           <stop offset="100%" stopColor="#22d3ee" />
+                        </linearGradient>
+                        <linearGradient id="mobile-exp-double-b" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor="#22d3ee" />
+                          <stop offset="50%" stopColor="#38bdf8" />
+                          <stop offset="100%" stopColor="#34d399" />
                         </linearGradient>
                       </defs>
                     </svg>
