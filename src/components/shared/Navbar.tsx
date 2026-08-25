@@ -36,7 +36,6 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center text-sm sm:text-lg font-bold tracking-tight text-white group-hover:text-emerald-300 transition-colors">
-            {/* মোবাইলে সংক্ষেপে Farhad, বড় স্ক্রিনে Farhad.dev */}
             <span>Farhad</span>
             <span className="hidden sm:inline text-emerald-400 font-mono">.dev</span>
           </div>
@@ -58,19 +57,20 @@ export default function Navbar() {
         {/* ডানদিকের অ্যাকশন বাটন গ্রুপ */}
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           
-          {/* ১. সিভি বাটন (মোবাইল ও ডেক্সটপ উভয় ডিভাইসেই শো করবে) */}
+          {/* ১. সিভি বাটন (ক্লিক করলে ডাউনলোড শুরু হবে এবং নতুন ট্যাবে ওপেনও হবে) */}
           <a
-            href="/jon.pdf"
+            href="/farhad.pdf"
+            download="Farhad_Hossain_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 sm:gap-1.5 text-xs font-medium text-zinc-300 hover:text-white bg-zinc-900 border border-white/10 px-2.5 sm:px-3 py-1.5 rounded-full hover:bg-zinc-800 transition-all shadow-sm"
-            title="View Resume"
+            title="Download & View Resume"
           >
             <FileText className="w-3.5 h-3.5 text-emerald-400" />
             <span>Resume</span>
           </a>
 
-          {/* ২. GitHub আইকন (ডেক্সটপে শো করবে) */}
+          {/* ২. GitHub আইকন */}
           <a
             href={personalInfo.github}
             target="_blank"
